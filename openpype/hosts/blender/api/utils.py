@@ -22,6 +22,7 @@ BL_TYPE_DATAPATH = (  # TODO rename DATACOL
         bpy.types.Camera: "cameras",
         bpy.types.Action: "actions",
         bpy.types.Armature: "armatures",
+        bpy.types.Text: "texts",
     }
 )
 # Match Blender type to an ICON for display
@@ -31,6 +32,7 @@ BL_TYPE_ICON = {
     bpy.types.Camera: "CAMERA_DATA",
     bpy.types.Action: "ACTION",
     bpy.types.Armature: "ARMATURE_DATA",
+    bpy.types.Text: "TEXT",
 }
 # Types which can be handled through the outliner
 BL_OUTLINER_TYPES = frozenset((bpy.types.Collection, bpy.types.Object))
