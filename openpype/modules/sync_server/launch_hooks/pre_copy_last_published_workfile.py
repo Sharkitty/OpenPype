@@ -195,9 +195,8 @@ class CopyLastPublishedWorkfile(PreLaunchHook):
 
         # Copy resources to the local resources directory
         for file in workfile_representation['files']:
-            resource_main_path = file["path"].replace(
-                "{root[main]}", str(anatomy.roots["main"])
-            )
+            # Get resource main path
+            resource_main_path = anatomy.fill_root(file['path'])
 
             # Only copy if the resource file exists, and it's not the workfile
             if (
