@@ -197,13 +197,15 @@ class CopyLastPublishedWorkfile(PreLaunchHook):
         for file in workfile_representation['files']:
             # Get resource main path
             resource_main_path = anatomy.fill_root(file["path"])
+            resource_basename = os.path.basename(resource_main_path)
 
             # Only copy if the resource file exists, and it's not the workfile
             if (
                 os.path.exists(resource_main_path)
-                and resource_main_path != last_published_workfile_path
+                and resource_basename != os.path.basename(
+                    last_published_workfile_path
+                )
             ):
-                resource_basename = os.path.basename(resource_main_path)
                 resource_work_path = os.path.join(
                     resources_dir, resource_basename
                 )
