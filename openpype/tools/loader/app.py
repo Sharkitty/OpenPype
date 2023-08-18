@@ -22,7 +22,8 @@ from .widgets import (
     FamilyListView,
     ThumbnailWidget,
     RepresentationWidget,
-    OverlayFrame
+    OverlayFrame,
+    LoaderErrorMessageBox,
 )
 
 from openpype.modules import ModulesManager
@@ -224,7 +225,10 @@ class LoaderWindow(QtWidgets.QDialog):
 
     def on_assetschanged(self, *args):
         self.echo("Fetching hierarchy..")
-        lib.schedule(self._assetschanged, 50, channel="mongo")
+        error_info = lib.schedule(self._assetschanged, 50, channel="mongo")
+        if error_info:
+            error_box = LoaderErrorMessageBox(error_info, self)
+            error_box.show()
 
     def on_subsetschanged(self, *args):
         self.echo("Fetching subset..")

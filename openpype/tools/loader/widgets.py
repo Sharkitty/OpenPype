@@ -1,3 +1,4 @@
+import re
 import os
 import sys
 import datetime
@@ -88,6 +89,46 @@ class OverlayFrame(QtWidgets.QFrame):
 
     def set_label(self, label):
         self.label_widget.setText(label)
+
+
+class LoaderErrorMessageBox(ErrorMessageBox):
+    def __init__(self, messages, parent=None):
+        self._messages = messages
+        super(LoaderErrorMessageBox, self).__init__("Loading failed", parent)
+
+    def _create_content(self, content_layout):
+        item_name_template = "<span style='font-weight:bold'>{}</span>"
+        exc_msg_template = "<span style='font-weight:bold'>{}</span>"
+
+        for exception, tb_text in self._messages:
+            line = self._create_line()
+            content_layout.addWidget(line)
+
+            item_name = item_name_template.format(
+                re.search(
+                    r"(?<=<class ').*(?='>)", str(type(exception))
+                ).group(0)
+            )
+            print(f"item_name {item_name}")
+            item_name_widget = QtWidgets.QLabel(
+                item_name.replace("\n", "<br>"), self
+            )
+            item_name_widget.setWordWrap(True)
+            content_layout.addWidget(item_name_widget)
+
+            exception = exc_msg_template.format(
+                str(exception).replace("\n", "<br>")
+            )
+            print(f"exception {exception}")
+            message_label_widget = QtWidgets.QLabel(exception, self)
+            message_label_widget.setWordWrap(True)
+            content_layout.addWidget(message_label_widget)
+
+            if tb_text:
+                line = self._create_line()
+                tb_widget = self._create_traceback_widget(tb_text, self)
+                content_layout.addWidget(line)
+                content_layout.addWidget(tb_widget)
 
 
 class LoadErrorMessageBox(ErrorMessageBox):

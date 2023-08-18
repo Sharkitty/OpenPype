@@ -339,10 +339,14 @@ def schedule(func, time, channel="default"):
 
     """
 
+    error_info = []
     try:
         SharedObjects.jobs[channel].stop()
-    except (AttributeError, KeyError, RuntimeError):
-        pass
+    except (AttributeError, KeyError, RuntimeError) as exc:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        error_info.append((exc, str(
+            traceback.format_exception(exc_type, exc_value, exc_traceback)
+        )))
 
     timer = QtCore.QTimer()
     timer.setSingleShot(True)
@@ -350,6 +354,8 @@ def schedule(func, time, channel="default"):
     timer.start(time)
 
     SharedObjects.jobs[channel] = timer
+
+    return error_info
 
 
 def iter_model_rows(model, column, include_root=False):
