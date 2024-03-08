@@ -184,3 +184,6 @@ class CopyLastPublishedWorkfile(PreLaunchHook):
         self.data["last_workfile_path"] = local_workfile_path
         # Keep source filepath for further path conformation
         self.data["source_filepath"] = last_published_workfile_path
+
+        if host_name == "blender":
+            self.data["set_workfile_publish_time"] = True
