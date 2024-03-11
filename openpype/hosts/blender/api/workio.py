@@ -140,7 +140,10 @@ def check_workfile_up_to_date() -> bool:
 
     scene = bpy.context.scene
 
-    last_published_time = last_published_version["data"]["time"]
+    last_published_time = (
+        last_published_version["data"].get("utc_time")
+        or last_published_version["data"]["time"]
+    )
     if scene.get("op_published_time"):
         return last_published_time <= scene["op_published_time"]
     else:

@@ -5,10 +5,12 @@ import importlib
 import contextlib
 from pathlib import Path
 from typing import Dict, List, Union
+from datetime import datetime
 
 import bpy
 import addon_utils
 from openpype.lib import Logger
+from openpype.lib.dateutils import get_timestamp
 from openpype.modules import ModulesManager
 from openpype.pipeline import Anatomy
 from openpype.pipeline.template_data import (
@@ -456,7 +458,10 @@ def download_last_workfile(
     ):
         raise OSError("Failed to download last published workfile")
 
-    return last_published_workfile_path, last_version_doc["data"]["time"]
+    return (
+        last_published_workfile_path,
+        get_timestamp(datetime_obj=datetime.utcnow()),
+    )
 
 
 def save_as_local_workfile(

@@ -1,4 +1,5 @@
 import bpy
+from datetime import datetime
 
 from openpype.lib.log import Logger
 from openpype.lib.dateutils import get_timestamp

@@ -16,5 +16,5 @@ class UpdateCurrentWorkfileLastPublishTime(pyblish.api.ContextPlugin):
 
     def process(self, context):
         scene = bpy.context.scene
-        scene["op_published_time"] = context.data["time"]
+        scene["op_published_time"] = context.data["utc_time"]
         scene.is_workfile_up_to_date = True
