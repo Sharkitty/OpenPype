@@ -11,7 +11,7 @@ class PreSetWorkfilePublishTime(PreLaunchHook):
 
     def execute(self):
         if self.data.get("source_filepath"):
-            # Add `set_workfile_publish_time` script to launch arguments
+            # Add `set_current_time_to_workfile` script to launch arguments
             self.launch_context.launch_args.insert(
                 self.launch_context.launch_args.index("-P"),
                 [
