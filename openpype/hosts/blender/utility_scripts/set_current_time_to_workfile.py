@@ -11,5 +11,4 @@ if __name__ == "__main__":
 
     # Set last publish time to current time
     # This script assumes it is only executed in a known up to date workfile
-    # TODO Use UTC time instead of local time
     bpy.context.scene["op_published_time"] = current_time
