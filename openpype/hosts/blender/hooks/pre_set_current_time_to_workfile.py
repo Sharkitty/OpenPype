@@ -17,7 +17,7 @@ class PreSetWorkfilePublishTime(PreLaunchHook):
                 [
                     "-P",
                     Path(utility_scripts.__file__).parent.joinpath(
-                        "set_workfile_publish_time.py"
+                        "set_current_time_to_workfile.py"
                     ).as_posix(),
                 ],
             )
