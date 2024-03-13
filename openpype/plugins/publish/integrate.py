@@ -859,6 +859,7 @@ class IntegrateAsset(pyblish.api.InstancePlugin):
         version_data = {
             "families": get_instance_families(instance),
             "time": context.data["time"],
+            "utc_time": context.data["utc_time"],
             "author": context.data["user"],
             "source": source,
             "comment": instance.data["comment"],

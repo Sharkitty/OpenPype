@@ -1,10 +1,11 @@
 import bpy
+from datetime import datetime
 
 from openpype.lib.log import Logger
 from openpype.lib.dateutils import get_timestamp
 
 if __name__ == "__main__":
-    current_time = get_timestamp()
+    current_time = get_timestamp(datetime_obj=datetime.utcnow())
 
     log = Logger().get_logger()
     log.debug(f"Setting workfile last publish time to {current_time}")
